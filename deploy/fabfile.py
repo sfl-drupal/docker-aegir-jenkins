@@ -715,7 +715,7 @@ def docker_stop_all():
 
 @task(alias='dkstart')
 @runs_once
-def docker_stop_all():
+def docker_start_all():
     """
     Complete docker STOP process, used generally to stop all containers. The same that run: $ fab dkstop
     """
