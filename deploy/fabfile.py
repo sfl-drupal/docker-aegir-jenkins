@@ -459,14 +459,10 @@ def manage_needed_files(role='local', project='aegir', action=True):
     with fab_cd(role, WORKSPACE):
         if action:
             fab_run(role, 'cp deploy/id_rsa.pub {}'.format(project))
-            fab_run(role, 'cp deploy/migrate-sites {}'.format(project))
-            fab_run(role, 'cp deploy/migrate.drush {}'.format(project))
             fab_run(role, 'cp deploy/migrateS.drush {}'.format(project))
             fab_run(role, 'cp deploy/deleteP.drush {}'.format(project))
         else:
             fab_run(role, 'rm {}/id_rsa.pub'.format(project))
-            fab_run(role, 'rm {}/migrate-sites'.format(project))
-            fab_run(role, 'rm {}/migrate.drush'.format(project))
             fab_run(role, 'rm {}/migrateS.drush'.format(project))
             fab_run(role, 'rm {}/deleteP.drush'.format(project))
 
@@ -485,8 +481,6 @@ def create_aegir_user(role='docker'):
     if not fab_exists(role, '/var/aegir/.ssh'):
         fab_run(role, 'mkdir /var/aegir/.ssh')
     fab_run(role, 'cp /root/.ssh/* /var/aegir/.ssh')
-    fab_run(role, 'cp /root/migrate.drush /var/aegir/')
-    fab_run(role, 'cp /root/migrate-sites /var/aegir/')
     fab_run(role, 'cp /root/migrateS.drush /var/aegir/')
     fab_run(role, 'cp /root/deleteP.drush /var/aegir/')
     fab_run(role, 'cat /var/aegir/.ssh/id_rsa.pub >> /var/aegir/.ssh/authorized_keys')
