@@ -1,0 +1,61 @@
+#!/usr/bin/drush @hostmaster
+<?php
+//Drush script to migrate a site from the command line
+//Provide site name and target platform name from the command line
+
+//Get site name and platform name
+$site_name = drush_shift();
+$platform_name = drush_shift();
+
+//Lookup site // CLEANER REQUEST NEED
+$sql = "SELECT nid FROM node where title = '$site_name' AND type = 'site';";
+$result = db_query($sql);
+foreach ($result as $row) {
+  $site_nid = $row->nid;
+}
+if (!$site_nid) {
+  drush_set_error('INVALID_SITE', "Specified site cannot be found");
+  exit();
+}
+
+//Lookup platform // CLEANER REQUEST NEED
+$sql = "SELECT nid FROM node where title = '$platform_name' AND type = 'platform'";
+$result = db_query($sql);
+foreach ($result as $row) {
+  $platform_nid = $row->nid;
+}
+if (!$platform_nid) {
+  drush_set_error('INVALID_PLATFORM', "Specified target platform cannot be found");
+  exit();
+}
+
+//Load full site details so we can add to migrate task
+$site = node_load($site_nid);
+
+//Confirm if platform is online, if not, wait
+$timeout = 600;
+$online = FALSE;
+$start_time = time();
+while (!$online) {
+  //Get platform readiness // CLEANER REQUEST NEED
+  $sql = "SELECT status FROM hosting_platform WHERE nid = '$platform_nid' AND status = 1";
+  $result = db_query($sql);
+  foreach ($result as $row) {
+      $online = $row->status;
+    }
+  //If we're not yet online, sleep for 15 seconds, unless we've already hit our timeout
+  if (!$online) {
+    if (time() - $start_time > $timeout) {
+      drush_set_error('PLATFORM_TIMEOUT', "Target migration platform was not ready within timeout period of $timeout seconds");
+      exit();
+    }
+    sleep(15);
+  }
+}
+
+//Platform must be online, so we can continue with the migrate
+hosting_add_task($site_nid, 'migrate', array(
+    'target_platform' => $platform_nid,
+    'new_uri' => $site->title,
+    'new_db_server' => $site->db_server,
+));
