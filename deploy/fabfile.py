@@ -699,3 +699,30 @@ def docker_clean_all():
     execute(clean_aegir_home)
 
     print green('Docker clean all finished with success!')
+
+
+@task(alias='dkstop')
+@runs_once
+def docker_stop_all():
+    """
+    Complete docker STOP process, used generally to stop all containers. The same that run: $ fab dkstop
+    """
+    execute(docker_stop_jenkins_container)
+    execute(docker_stop_aegir_container)
+
+    print green('Docker clean all finished with success!')
+
+
+@task(alias='dkstart')
+@runs_once
+def docker_stop_all():
+    """
+    Complete docker STOP process, used generally to stop all containers. The same that run: $ fab dkstop
+    """
+    execute(docker_run_aegir_container)
+    fab_run('local', 'docker start {}_container'.format(JENKINS_PROJECT_NAME))
+    execute(add_jenkins_host)
+    execute(get_aegir_host_ip)
+
+    print green('Docker clean all finished with success!')
+
