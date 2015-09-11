@@ -1,0 +1,12 @@
+#!/bin/bash
+ENVIRONMENT=$1
+NEWPLATFORMNAME=$2
+
+PLATFORMNAME="$ENVIRONMENT-demo*"
+
+for i in `drush site-alias | egrep -v '(^server_|^platform_|^hostmaster|^none|^hm)'`; do
+ if drush site-alias --format=csv --fields=root @${i} | grep -q "platforms/${PLATFORMNAME}" ; then
+   echo "######### MIGRATING ${i} #####"
+   ./migrate.drush ${i} $NEWPLATFORMNAME
+ fi
+done

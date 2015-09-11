@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty plugin="gitlab-logo@1.0.1">
+      <repositoryName></repositoryName>
+    </org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/sfl-drupal/indus-demo.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>aegir</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+
+#HASH=${GIT_COMMIT:0:4}
+PLATEFORM=demo-7x-${HASH}-${BUILD_NUMBER}
+
+# This is our candidate artifact for deployment
+if ! test -e $WORKSPACE/build; then
+  mkdir $WORKSPACE/build
+else
+  rm -rf $WORKSPACE/build/*
+fi
+cd $WORKSPACE/src/drupal
+# Compress the thing
+tar -czf $WORKSPACE/build/demo-7.x-${BUILD_NUMBER}.tar.gz .
+
+# we can has verbose
+set -x
+# abort if error
+set -e
+
+if ! test -e $WORKSPACE/build; then
+  mkdir $WORKSPACE/build
+else 
+  rm -rf $WORKSPACE/build/*.tar.gz
+fi
+
+
+cd $WORKSPACE
+echo &quot;Reading Jenkins database config....&quot; &gt;&amp;2
+if [ -r $WORKSPACE/../.drush-deploy.rc ]; then
+  echo &quot;Reading database config....&quot; &gt;&amp;2
+  . $WORKSPACE/../.drush-deploy.rc
+else
+  echo &quot;Database credentials not found&quot;;
+  exit 1;
+fi
+
+# Clean up first
+if test -e $WORKSPACE/src/drupal; then
+  if test -e $WORKSPACE/src/drupal/sites/default; then
+     chmod +w $WORKSPACE/src/drupal/sites/default
+  fi
+  rm -rf $WORKSPACE/src/drupal
+fi
+
+# Clone or update the profil
+if test -e $WORKSPACE/indus_profile; then
+  rm -rf $WORKSPACE/indus_profile
+fi
+git clone https://github.com/sfl-drupal/indus-profile.git indus_profile
+
+# Bootstrap nouveau, utilise le cache ~jenkins/.drush/cache/download
+drush make $WORKSPACE/indus_profile/build/demo.make src/drupal --contrib-destination=profiles/indus_profile
+
+#######################################################################################################################################
+
+# This is our candidate artifact for deployment
+if ! test -e $WORKSPACE/build; then
+  mkdir $WORKSPACE/build
+else
+  rm -rf $WORKSPACE/build/*
+fi
+cd $WORKSPACE/src/drupal
+# Compress the thing
+tar -czf $WORKSPACE/build/$PLATEFORM.tar.gz .
+# And add a permanent link to it
+# cd $WORKSPACE/build
+# ln -s $PLATEFORM.tar.gz $PLATEFORM_PERMANENT.tar.gz
+
+##########################################################################################################
+
+
+# Prepare test behat
+cd $WORKSPACE
+cp $WORKSPACE/tests/behat/example.behat.yml $WORKSPACE/tests/behat/behat.yml
+sed -i &quot;s@%DRUPAL_ROOT@`pwd`/src/drupal@g&quot; $WORKSPACE/tests/behat/behat.yml
+sed -i &quot;s@%URL@http://local.indus.sfl@g&quot; $WORKSPACE/tests/behat/behat.yml
+
+# Install the site
+cd $WORKSPACE/src/drupal
+drush si --yes  --db-url=&quot;mysql://$DB_USER:$DB_PASS@localhost/$DB_NAME&quot; --site-name=&quot;Drupal Camp MTL 2015&quot; indus_profile --account-name=admin --account-pass=admin --clean-url=1
+chmod a+w $WORKSPACE/src/drupal/sites/default/files
+
+# Revert features
+drush fra -y
+
+# Clear cache
+drush cc all
+
+drush status
+
+
+# Test section
+mkdir -p ${WORKSPACE}/logs/behat
+cd ${WORKSPACE}/tests/behat
+behat --format pretty --tags &quot;~@wip&amp;&amp;~@disabled&amp;&amp;~@local&quot; --colors</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build/*.tar.gz</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.1">
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+  </buildWrappers>
+</project>
