@@ -1,5 +1,6 @@
 .idea/
 *.pyc
+deploy/id_rsa.pub
 jenkins/jenkins_home/.owner
 jenkins/jenkins_home/.java/fonts/1.8.0_66-internal/fcinfo-1-local.jenkins.sfl-Linux-3.13.0-58-generic-en.properties
 jenkins/jenkins_home/fingerprints/25/
