@@ -3,14 +3,19 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>1.509.4</version>
+        <version>1.580.1</version>
     </parent>
     <artifactId>script-security</artifactId>
-    <version>1.13</version>
+    <version>1.17</version>
     <packaging>hpi</packaging>
     <name>Script Security Plugin</name>
     <description>Allows Jenkins administrators to control what in-process scripts can be run by less-privileged users.</description>
-    <url>https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin</url>
+    <url>https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin</url> 
+    <properties>
+      <findbugs-maven-plugin.version>3.0.2</findbugs-maven-plugin.version>
+      <!--TODO: make true after the code cleanup-->
+      <findbugs.failOnError>false</findbugs.failOnError>
+    </properties>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -21,7 +26,7 @@
         <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
-      <tag>script-security-1.13</tag>
+      <tag>script-security-1.17</tag>
   </scm>
     <repositories>
         <repository>
@@ -39,7 +44,7 @@
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>groovy-sandbox</artifactId>
-            <version>1.8</version>
+            <version>1.10</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy</groupId>
@@ -50,14 +55,30 @@
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
-            <version>2.0.1</version>
+            <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency> <!-- TODO default as of 1.568+ -->
-            <groupId>org.jenkins-ci</groupId>
-            <artifactId>test-annotations</artifactId>
-            <version>1.1</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>${findbugs-maven-plugin.version}</version>
+          <configuration>
+            <xmlOutput>true</xmlOutput>
+            <failOnError>${findbugs.failOnError}</failOnError>
+          </configuration>
+          <executions>
+            <execution>
+              <id>run-findbugs</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
 </project>

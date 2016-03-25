@@ -10,7 +10,7 @@
     <artifactId>copyartifact</artifactId>
     <packaging>hpi</packaging>
     <name>Copy Artifact Plugin</name>
-    <version>1.35.2</version>
+    <version>1.37</version>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin</url>
 
     <licenses>
@@ -87,6 +87,12 @@
             </exclusion>
         </exclusions>
       </dependency>
+      <!-- to suppress known (and harmless) findbugs issues -->
+      <dependency>
+          <groupId>com.google.code.findbugs</groupId>
+          <artifactId>annotations</artifactId>
+          <version>3.0.0</version>
+      </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -94,6 +100,15 @@
                 <groupId>org.jenkins-ci.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
                 <version>1.95</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <failOnError>false</failOnError>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -117,7 +132,7 @@
       <connection>scm:git:git://github.com/jenkinsci/copyartifact-plugin.git</connection>
       <developerConnection>scm:git:git@github.com:jenkinsci/copyartifact-plugin.git</developerConnection>
       <url>https://github.com/jenkinsci/copyartifact-plugin</url>
-      <tag>copyartifact-1.35.2</tag>
+      <tag>copyartifact-1.37</tag>
   </scm>
 
     <repositories>
