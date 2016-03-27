@@ -1,0 +1,59 @@
+name = SFLinux installation profile
+description = Generic Drupal distribution
+core = 7.x
+
+; Core
+dependencies[] = image
+dependencies[] = block
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+dependencies[] = search
+dependencies[] = syslog
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = help
+dependencies[] = search
+
+; Contrib
+dependencies[] = admin_menu
+dependencies[] = adminimal_admin_menu
+dependencies[] = ckeditor
+dependencies[] = context
+dependencies[] = context_ui
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_api
+dependencies[] = date_popup
+dependencies[] = date_views
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = entity_token
+dependencies[] = features
+dependencies[] = features_orphans
+dependencies[] = field_group
+dependencies[] = file_entity
+dependencies[] = jquery_update
+dependencies[] = libraries
+dependencies[] = link
+dependencies[] = media
+dependencies[] = module_filter
+dependencies[] = page_manager
+dependencies[] = panels
+dependencies[] = panels_breadcrumbs
+dependencies[] = pathauto
+dependencies[] = pm_existing_pages
+dependencies[] = strongarm
+dependencies[] = token
+dependencies[] = views
+dependencies[] = views_content
+dependencies[] = views_ui
+
+; SFL Contrib
+dependencies[] = env_conf

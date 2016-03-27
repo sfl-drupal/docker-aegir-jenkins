@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<result plugin="junit@1.11">
+  <suites>
+    <suite>
+      <file>/home/jenkins/workspace/Tests/tests/behat/out/behat.junit.xml</file>
+      <name>Generic site features and global health</name>
+      <duration>8.785002</duration>
+      <cases>
+        <case>
+          <duration>0.936</duration>
+          <className>Generic site features and global health</className>
+          <testName>The homepage must load properly</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.817</duration>
+          <className>Generic site features and global health</className>
+          <testName>Accessing to admin menu toolbar</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>1.791</duration>
+          <className>Generic site features and global health</className>
+          <testName>The cache can be cleared</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>1.34</duration>
+          <className>Generic site features and global health</className>
+          <testName>An administrator can administer the modules</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.117</duration>
+          <className>Generic site features and global health</className>
+          <testName>An anonymous user can not access to admin pages</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.617</duration>
+          <className>Generic site features and global health</className>
+          <testName>An administrator can create users</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.532</duration>
+          <className>Generic site features and global health</className>
+          <testName>An administrator can create users with roles</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>1.515</duration>
+          <className>Generic site features and global health</className>
+          <testName>Run cron</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.313</duration>
+          <className>Generic site features and global health</className>
+          <testName>Login as a user created during this scenario</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.081</duration>
+          <className>Generic site features and global health</className>
+          <testName>Error messages</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.35</duration>
+          <className>Generic site features and global health</className>
+          <testName>drush command with text matching: drush output correct status</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+        <case>
+          <duration>0.376</duration>
+          <className>Generic site features and global health</className>
+          <testName>drush command with arguments: re-enable system</testName>
+          <skipped>false</skipped>
+          <failedSince>0</failedSince>
+        </case>
+      </cases>
+    </suite>
+  </suites>
+  <duration>8.785002</duration>
+  <keepLongStdio>false</keepLongStdio>
+</result>

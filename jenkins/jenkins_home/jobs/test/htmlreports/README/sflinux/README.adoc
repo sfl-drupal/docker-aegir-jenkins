@@ -1,0 +1,109 @@
+= SFLINUX: A custom Drupal distribution
+:keywords: Drupal, SFL, SFLinux, AsciiDoc, Asciidoctor 
+:page-layout: base
+:page-description: {description}
+:page-keywords: {keywords}
+ifdef::env-site[]
+:toc:
+:toc-placement: preamble
+endif::[]
+ifndef::env-site[]
+:toc: right
+:icons: font
+:idprefix:
+:idseparator: -
+:sectanchors:
+:source-highlighter: highlight.js
+endif::[]
+:experimental:
+:mdash: &#8212;
+:language: asciidoc
+:source-language: {language}
+:table-caption!:
+:example-caption!:
+:figure-caption!:
+:imagesdir: ../images
+:includedir: _includes
+// Refs
+:asciidoc-dl-ref: http://sourceforge.net/projects/asciidoc/files/latest/download
+:asciidoc-editor-ref: http://asciidoc.org/#_editor_support
+:asciidoc-faq-ref: http://asciidoc.org/faq.html
+:asciidoc-guide-ref: http://asciidoc.org/userguide.html
+:asciidoc-install-ref: http://asciidoc.org/INSTALL.html
+:asciidoc-list-ref: http://groups.google.com/group/asciidoc
+:asciidoctor-ref: http://asciidoctor.org/
+:asciidoctor-gem-ref: https://rubygems.org/gems/asciidoctor
+:uri-install: http://asciidoctor.org/docs/install-toolchain/
+:fopub-doc-ref: https://github.com/asciidoctor/asciidoctor-fopub/blob/master/README.adoc
+:user-ref: http://asciidoctor.org/docs/user-manual
+:docs-ref: http://asciidoctor.org/docs
+:uri-editing: http://asciidoctor.org/docs/editing-asciidoc-with-live-preview/
+:gist-ref: http://gist.github.com
+:publican-ref: https://fedorahosted.org/publican
+:sfl-wiki-drupal: https://wiki.savoirfairelinux.com/wiki/Pratique_Drupal
+:doc-composer: https://getcomposer.org/
+:uri-what-asciidoc: http://asciidoctor.org/docs/what-is-asciidoc-why-use-it
+
+
+    / __/ __/ /  /  _/ |/ / / / / |/_/
+   _\ \/ _// /___/ //    / /_/ />  <  
+  /___/_/ /____/___/_/|_/\____/_/|_|  
+
+
+// (to make a title: echo " CLIENT.PROJECT" | figlet -f smslant )
+
+This *Drupal distribution*, or *installation profile*, aims at _showcasing_ the Drupal modules we love at SFL, and the modules we use the most often in clients projects. It also aims at _demonstrating_ how to build a custom Drupal distribution by implementating Drupal-related *best-practices* like the Makefile naming conventions. 
+
+TIP: More information on our Drupal practices at Savoir-faire Linux are described in {sfl-wiki-drupal}[the official Wiki].
+
+
+== System Requirements
+
+This installation profile has been designed to work with Drupal 7, and is compatible with PHP > 5.3.
+Ensure your system is properly installed.
+
+The following operation system is known to be fully compatible: 
+
+* Ubuntu 14.04 LTS (64 bits)
+
+It is recommanded to install the following dependencies with {doc-composer}[Composer].
+
+The following dependencies need to be installed:
+
+* Drush (version 6 or version 7)
+
+== Installation
+
+To build the distribution, run:
+
+ $ drush make build/build-sflinux.make src
+
+
+TIP: The *rebuild.sh* script can be used to rebuild the profile dependencies, ie everything specified in the _drupal-org.make_ file.
+
+
+== Official documentation
+
+More on Drupal distributions: https://www.drupal.org/documentation/build/distributions.
+
+More on Drush and Makefile: https://www.drupal.org/node/1432374.
+
+== About this document
+
+This document uses the Asciidoc syntax generator. It is a convenient
+tool allowing to write documentation in raw text files, and convert
+them to HTML or PDF later on.
+
+To generate a HTML version, first install asciidoctor package on your
+Linux distribution, then issue following command:
+
+ $ asciidoctor README.SFL
+
+The README.html is generated in the current directory.
+
+If you prefer the PDF format, install dblatex package on your Linux
+distribution, then issue following command:
+
+ $ a2x -f pdf --dblatex-opts "-P latex.output.revhistory=0" README.SFL
+
+The README.pdf file shall be created.

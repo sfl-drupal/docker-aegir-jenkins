@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * SFLinux installation profile,
+ * Install, update and uninstall functions.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Performs actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function sflinux_install() {
+
+  include_once DRUPAL_ROOT . '/profiles/standard/standard.install';
+  standard_install();
+
+  // Activate front and back themes,
+  // use admin theme to create/edit nodes.
+  theme_enable(array('adminimal'));
+  variable_set('admin_theme', 'adminimal');
+  variable_set('node_admin_theme', 1);
+
+  // Site language
+  $language_negociation_language = array(
+    'locale-url' => array(
+      'callbacks' => array(
+        'language' => 'locale_language_from_url',
+        'switcher' => 'locale_language_switcher_url',
+        'url_rewrite' => 'locale_language_url_rewrite_url',
+      ),
+      'file' => 'includes/locale.inc',
+    ),
+    'language-default' => array(
+      'callbacks' => array(
+        'language' => 'language_from_default',
+      ),
+    ),
+  );
+  variable_set('language_negotiation_language', $language_negociation_language);
+  variable_set('site_default_country', 'FR');
+  variable_set('date_first_day', '1');
+}

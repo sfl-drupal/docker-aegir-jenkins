@@ -1,0 +1,15 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Building remotely on [8mha:AAAAmx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZ+/eT83ILSktQi/cTU9MwiAMqlK+vEAAAA[0maegir in workspace /home/jenkins/workspace/Deploy
+Copied 1 artifact from "[8mha:AAAAjB+LCAAAAAAAAP9b85aBtbiIQSajNKU4P08vOT+vOD8nVc+jsiC1KCczL9svvyTVzHb1RttJBUeZGJg8GdhyUvPSSzJ8GJhLi3JKGIR8shLLEvVzEvPS9YNLijLz0q0rihik0IxzhtAgwxgggJGJgaGiAMhgLWHg1s/KT9IPSS0uKdYHAKYJhxWQAAAA[0mTests" build number [8mha:AAAAjx+LCAAAAAAAAP9b85aBtbiIQSajNKU4P08vOT+vOD8nVc+jsiC1KCczL9svvyTVzHb1RttJBUeZGJg8GdhyUvPSSzJ8GJhLi3JKGIR8shLLEvVzEvPS9YNLijLz0q0rihik0IxzhtAgwxgggJGJgaGiAMhgKmHg08/KT9IPSS0uKdY3MtcHAGNNOk6TAAAA[0m27
+[Deploy] $ /bin/bash /tmp/hudson7662512639381054870.sh
+Reading Jenkins database config....
+Reading database config....
++ set -e
++ test -e /home/jenkins/workspace/Deploy/src/drupal
++ mkdir -p /home/jenkins/workspace/Deploy/src/drupal
++ cd /home/jenkins/workspace/Deploy/src/drupal
++ tar -xvf /home/jenkins/workspace/Deploy/build/demo-7x--27.tar.gz .
+tar: /home/jenkins/workspace/Deploy/build/demo-7x--27.tar.gz: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

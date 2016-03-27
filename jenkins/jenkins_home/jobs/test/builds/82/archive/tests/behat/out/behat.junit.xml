@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="default" tests="0"/>
+  <testsuite name="Generic site features and global health" tests="12" failures="0" skipped="0" errors="0" time="8.795">
+    <testcase name="The homepage must load properly" time="0.936" status="passed"/>
+    <testcase name="Accessing to admin menu toolbar" time="0.817" status="passed"/>
+    <testcase name="The cache can be cleared" time="1.791" status="passed"/>
+    <testcase name="An administrator can administer the modules" time="1.34" status="passed"/>
+    <testcase name="An anonymous user can not access to admin pages" time="0.117" status="passed"/>
+    <testcase name="An administrator can create users" time="0.617" status="passed"/>
+    <testcase name="An administrator can create users with roles" time="0.532" status="passed"/>
+    <testcase name="Run cron" time="1.515" status="passed"/>
+    <testcase name="Login as a user created during this scenario" time="0.313" status="passed"/>
+    <testcase name="Error messages" time="0.081" status="passed"/>
+    <testcase name="drush command with text matching: drush output correct status" time="0.35" status="passed"/>
+    <testcase name="drush command with arguments: re-enable system" time="0.376" status="passed"/>
+  </testsuite>
+</testsuites>

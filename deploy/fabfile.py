@@ -576,7 +576,7 @@ def create_jenkins_user(role='docker'):
     fab_run(role, 'ssh-keyscan gitlab.savoirfairelinux.com >> /home/jenkins/.ssh/known_hosts')
     fab_run(role, 'ssh-keyscan github.com >> /home/jenkins/.ssh/known_hosts')
     fab_run(role, 'ssh-keyscan localhost >> /home/jenkins/.ssh/known_hosts')
-    #fab_run(role, 'rm /home/jenkins/.ssh/id_rsa.pub')
+    fab_run(role, 'rm /home/jenkins/.ssh/id_rsa.pub')
     fab_run(role, 'mkdir /home/jenkins/workspace')
     fab_run(role, 'echo "DB_USER={}" >> /home/jenkins/workspace/.drush-deploy.rc'.format(JENKINS_DB_USER))
     fab_run(role, 'echo "DB_PASS={}" >> /home/jenkins/workspace/.drush-deploy.rc'.format(JENKINS_DB_PASS))
@@ -678,7 +678,7 @@ def docker_setup():
     # Jenkins task
     execute(create_jenkins_user)
     execute(docker_run_jenkins_container)
-    #execute(setup_jenkins_sshkeys)
+    execute(setup_jenkins_sshkeys)
     execute(add_jenkins_keys_to_aegir_authorized_keys)
     execute(add_jenkins_host)
     execute(get_aegir_host_ip)
