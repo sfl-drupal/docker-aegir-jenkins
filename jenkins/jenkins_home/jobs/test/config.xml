@@ -56,13 +56,13 @@ about how a Drupal project must be setup.</description>
     <hudson.tasks.Shell>
       <command># Set config project into drupalizer
 cp conf/drupalizer.py fabfile/local_vars.py
-echo &quot;env.interactive_mode = False&quot; &gt;&gt; fabfile/local_vars.py
+#echo &quot;env.interactive_mode = False&quot; &gt;&gt; fabfile/local_vars.py
 
 # Create image and start container.
 fab docker.image_create docker.container_start
 
 # init =&gt; start container and install site, test =&gt; run tests, release =&gt; build the release to deploy.
-fab install test release
+fab --set interactive_mode=False install test release
 
 # stop the container at the end.
 fab docker.container_stop

@@ -26,8 +26,8 @@
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
         <hudson.model.BooleanParameterDefinition>
-          <name>delete_old_platform</name>
-          <description>Cocher cette case pour lancer enlever les anciens plateformes automatiquement.</description>
+          <name>remove_platform</name>
+          <description>Cocher cette case pour lancer enlever les anciens plateformes sans sites de façon automatique.</description>
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
       </parameterDefinitions>
@@ -74,7 +74,18 @@
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>fab deploy.to_aegir:${ENVIRONMENT},build=${BUILD_NUMBER},migrate_sites=$migrate_sites,delete_old_platforms=$delete_old_platform</command>
+      <command># This job will deploy a new platform
+#fab --set build_number=${BUILD_NUMBER} deploy:${ENVIRONMENT}
+
+# This job will deploy a new platform with the option to migrate sites to this platform
+#fab --set build_number=${BUILD_NUMBER},migrate_sites=$migrate_sites deploy:${ENVIRONMENT}
+
+# This job will deploy a new platform with the option to migrate sites to this platform and remove old platform without sites.
+fab --set build_number=${BUILD_NUMBER},migrate_sites=$migrate_sites,remove_platform=$remove_platform deploy:${ENVIRONMENT}
+
+
+# Clean up copied artifacts
+rm -rf $WORKSPACE/build/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

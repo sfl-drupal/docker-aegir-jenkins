@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Déploiement vers Aegir</description>
+  <description>Déploiement vers a Web Server</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkinsci.plugins.gitlablogo.GitlabLogoProperty plugin="gitlab-logo@1.0.1">
@@ -64,7 +64,10 @@
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>fab deploy.to_server:${ENVIRONMENT}</command>
+      <command>fab deploy:${ENVIRONMENT}
+
+# Clean up copied artifacts
+rm -rf $WORKSPACE/build/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
