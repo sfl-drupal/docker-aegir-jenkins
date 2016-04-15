@@ -1,4 +1,4 @@
-#!/usr/bin/drush @hostmaster
+#!/usr/local/bin/drush @hostmaster
 <?php
 //Drush script to remove old platforms from command line
 //Provide target platform name from the command line

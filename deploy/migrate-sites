@@ -1,4 +1,4 @@
-#!/usr/bin/drush @hostmaster
+#!/usr/local/bin/drush @hostmaster
 <?php
 // Drush script to migrate a site from the command line
 // Provide site name and target platform name from the command line

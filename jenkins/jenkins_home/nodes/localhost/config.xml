@@ -9,7 +9,7 @@
   <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.10">
     <host>172.17.0.1</host>
     <port>22</port>
-    <credentialsId>b25eab0e-41e6-40fd-a63e-249e05b908bd</credentialsId>
+    <credentialsId>9addfd28-211b-40d1-b46b-8ce7f811c2ba</credentialsId>
     <maxNumRetries>0</maxNumRetries>
     <retryWaitTime>0</retryWaitTime>
   </launcher>

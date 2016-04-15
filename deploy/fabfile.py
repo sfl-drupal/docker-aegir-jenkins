@@ -577,6 +577,8 @@ def create_jenkins_user(role='local'):
         fab_run(role, 'cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys')
         fab_run(role, 'ssh-keyscan gitlab.savoirfairelinux.com >> ~/.ssh/known_hosts')
         fab_run(role, 'ssh-keyscan github.com >> ~/.ssh/known_hosts')
+        fab_run(role, 'ssh-keyscan local.aegir.sfl >> ~/.ssh/known_hosts')
+        fab_run(role, 'ssh-keyscan localhost >> ~/.ssh/known_hosts')
         # The files are reused by the Jenkins user.
         fab_run(role, 'sudo cp -r ~/.ssh /home/jenkins/')
         fab_run(role, 'sudo openssl rsa -in ~/.ssh/id_rsa -out /home/jenkins/.ssh/id_rsa')
