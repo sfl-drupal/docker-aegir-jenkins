@@ -25,8 +25,7 @@ about how a Drupal project must be setup.</description>
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://gitlab.savoirfairelinux.com/drupal/sfl-boilerplate.git</url>
-        <credentialsId>b4363139-9dfc-437a-b981-6f39ebaa2b20</credentialsId>
+        <url>https://github.com/sfl-drupal/indus-demo.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -54,18 +53,15 @@ about how a Drupal project must be setup.</description>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command># Set config project into drupalizer
+      <command># Copy configuration file into fabfile
 cp conf/drupalizer.py fabfile/local_vars.py
-#echo &quot;env.interactive_mode = False&quot; &gt;&gt; fabfile/local_vars.py
 
-# Create image and start container.
-fab docker.image_create docker.container_start
+# Create docker image if needed, start contaier, update the IP in the config and install the site.
+fab --set interactive_mode=false init 
 
-# init =&gt; start container and install site, test =&gt; run tests, release =&gt; build the release to deploy.
-fab --set interactive_mode=False install test release
+# Run the tests, build the release to deploy, and stop the container
+fab --set interactive_mode=false test release docker.container_stop
 
-# stop the container at the end.
-fab docker.container_stop
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -100,11 +96,5 @@ fab docker.container_stop
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.2">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
-    <com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper plugin="ssh-agent@1.10">
-      <credentialIds>
-        <string>b4363139-9dfc-437a-b981-6f39ebaa2b20</string>
-      </credentialIds>
-      <ignoreMissing>false</ignoreMissing>
-    </com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper>
   </buildWrappers>
 </project>

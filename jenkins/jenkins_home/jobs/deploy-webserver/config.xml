@@ -14,9 +14,9 @@
           <description>Choix de l&apos;environnement</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
-              <string>dev</string>
-              <string>staging</string>
-              <string>production</string>
+              <string>dev2</string>
+              <string>staging2</string>
+              <string>production2</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
@@ -27,8 +27,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://gitlab.savoirfairelinux.com/drupal/sfl-boilerplate.git</url>
-        <credentialsId>b4363139-9dfc-437a-b981-6f39ebaa2b20</credentialsId>
+        <url>https://github.com/sfl-drupal/indus-demo.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -64,19 +63,16 @@
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>fab deploy:${ENVIRONMENT}
+      <command># Copy configuration file into fabfile
+cp conf/drupalizer.py fabfile/local_vars.py
+
+# Deploy artifact
+fab deploy:${ENVIRONMENT}
 
 # Clean up copied artifacts
 rm -rf $WORKSPACE/build/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers>
-    <com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper plugin="ssh-agent@1.10">
-      <credentialIds>
-        <string>b4363139-9dfc-437a-b981-6f39ebaa2b20</string>
-      </credentialIds>
-      <ignoreMissing>false</ignoreMissing>
-    </com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper>
-  </buildWrappers>
+  <buildWrappers/>
 </project>

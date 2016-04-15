@@ -15,8 +15,8 @@
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>dev</string>
-              <string>staging</string>
-              <string>production</string>
+              <string>staging-aegir</string>
+              <string>production-aegir</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
@@ -26,7 +26,7 @@
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
         <hudson.model.BooleanParameterDefinition>
-          <name>remove_platform</name>
+          <name>remove_platforms</name>
           <description>Cocher cette case pour lancer enlever les anciens plateformes sans sites de façon automatique.</description>
           <defaultValue>true</defaultValue>
         </hudson.model.BooleanParameterDefinition>
@@ -37,8 +37,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://gitlab.savoirfairelinux.com/drupal/sfl-boilerplate.git</url>
-        <credentialsId>b4363139-9dfc-437a-b981-6f39ebaa2b20</credentialsId>
+        <url>https://github.com/sfl-drupal/indus-demo.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -74,14 +73,17 @@
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command># This job will deploy a new platform
+      <command># Copy configuration file into fabfile
+cp conf/drupalizer.py fabfile/local_vars.py
+
+# This job will deploy a new platform
 #fab --set build_number=${BUILD_NUMBER} deploy:${ENVIRONMENT}
 
 # This job will deploy a new platform with the option to migrate sites to this platform
 #fab --set build_number=${BUILD_NUMBER},migrate_sites=$migrate_sites deploy:${ENVIRONMENT}
 
 # This job will deploy a new platform with the option to migrate sites to this platform and remove old platform without sites.
-fab --set build_number=${BUILD_NUMBER},migrate_sites=$migrate_sites,remove_platform=$remove_platform deploy:${ENVIRONMENT}
+fab --set build_number=${BUILD_NUMBER},migrate_sites=$migrate_sites,remove_platforms=$remove_platforms deploy:${ENVIRONMENT}
 
 
 # Clean up copied artifacts
@@ -89,12 +91,5 @@ rm -rf $WORKSPACE/build/</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers>
-    <com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper plugin="ssh-agent@1.10">
-      <credentialIds>
-        <string>b4363139-9dfc-437a-b981-6f39ebaa2b20</string>
-      </credentialIds>
-      <ignoreMissing>false</ignoreMissing>
-    </com.cloudbees.jenkins.plugins.sshagent.SSHAgentBuildWrapper>
-  </buildWrappers>
+  <buildWrappers/>
 </project>

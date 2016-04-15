@@ -1,6 +1,7 @@
 .idea/
 *.pyc
 deploy/id_rsa.pub
+deploy/id_rsa
 jenkins/jenkins_home/.owner
 jenkins/jenkins_home/.java/fonts/1.8.0_66-internal/fcinfo-1-local.jenkins.sfl-Linux-3.13.0-58-generic-en.properties
 jenkins/jenkins_home/fingerprints/25/
@@ -30,3 +31,17 @@ jenkins/jenkins_home/nodeMonitors.xml
 jenkins/jenkins_home/updates/
 jenkins/jenkins_home/userContent/
 jenkins/jenkins_home/war/
+jenkins/jenkins_home/Fingerprint cleanup.log
+jenkins/jenkins_home/jobs/deploy-aegir/builds/
+jenkins/jenkins_home/jobs/deploy-aegir/nextBuildNumber
+jenkins/jenkins_home/jobs/deploy-webserver/builds/
+jenkins/jenkins_home/jobs/deploy-webserver/nextBuildNumber
+jenkins/jenkins_home/jobs/test/builds/
+jenkins/jenkins_home/jobs/test/htmlreports/README/README.md
+jenkins/jenkins_home/jobs/test/htmlreports/README/htmlpublisher-wrapper.html
+jenkins/jenkins_home/jobs/test/htmlreports/README/indus-profile/
+jenkins/jenkins_home/jobs/test/htmlreports/README/indus_profile/
+jenkins/jenkins_home/jobs/test/htmlreports/README/sfl_indus-20160414_170333.tar.gz
+jenkins/jenkins_home/jobs/test/nextBuildNumber
+jenkins/jenkins_home/users/
+
